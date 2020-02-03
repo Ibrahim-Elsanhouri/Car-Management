@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="car_form" model="ir.ui.view">
+        <field name="name">car.form</field>
+        <field name="model">car.car</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>
+                        <field name="status" widget="statusbar"/>
+                        <button name="set_car_to_used" string="Set Car Used" type="object" class="oe_highlight"
+                                attrs="{('invisible'):[('status' , '=' , 'used' )]}"/>
+                        <button name="set_car_to_sold" string="Set Car Sold" type="object" class="oe_highlight"
+                                attrs="{'invisible':[('status' , '=' , 'sold' )]}"/>
+
+
+                    </header>
+                    <widget name="web_ribbon" text="New" bg_color="bg-danger" attrs="{'invisible':[('status' ,'!=','new')]}"/>
+                    <widget name="web_ribbon" text="Sold" bg_color="bg-success" attrs="{'invisible':[('status' ,'!=','sold')]}"/>
+
+                    <group>
+
+
+                        <group>
+                            <field name="name"/>
+                            <field name="horse_power"/>
+
+                            <field name="door_numbers"/>
+
+                            <field name="driver_id"/>
+
+                            <field name="features_ids" widget="many2many_tags"/>
+                            <field name="total_speed" />
+                            <field name="car_sequence" readonly="1"/>
+
+
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+
+
+        </field>
+
+
+    </record>
+    <record id="car_tree" model="ir.ui.view">
+        <field name="name">car.form</field>
+        <field name="model">car.car</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="horse_power"/>
+                <field name="door_numbers" sum="Total Doors"/>
+                <field name="driver_id"/>
+
+            </tree>
+        </field>
+
+
+    </record>
+
+    <record id="car_action" model="ir.actions.act_window">
+        <field name="name">car.form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">car.car</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="car_menu" name="Car" sequence="200" action="car_action"/>
+</odoo>
